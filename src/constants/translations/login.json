@@ -1,0 +1,42 @@
+{
+  "en": {
+    "number": {
+      "label": "Mobile Number",
+      "placeholder": "Enter mobile number",
+      "start": "+91"
+    },
+    "password": {
+      "label": "Enter password"
+    },
+    "buttons": {
+      "resend": "Resend Code",
+      "forgotpassword": "Forgot Password ?",
+      "sendOtp": "Generate OTP",
+      "submit": "Login"
+    },
+    "optSentMessage": "OTP has been sent to",
+    "otpSentSuccess": "OTP sent again Successfully",
+    "loginSuccess": "Login Successfully",
+    "successMessage": "OTP sent to your email id."
+  },
+  "hi": {
+    "number": {
+      "label": "मोबाइल नंबर",
+      "placeholder": "मोबाइल नंबर दर्ज करें",
+      "start": "+91"
+    },
+    "otp": {
+      "label": "ओटीपी दर्ज करें"
+    },
+    "buttons": {
+      "resend": "कोड फिर से भेजें",
+      "forgotpassword": "पासवर्ड भूल गए?",
+      "sendOtp": "ओटीपी उत्पन्न करें",
+      "submit": "लॉगिन करें"
+    },
+    "optSentMessage": "ओटीपी भेजा गया है",
+    "otpSentSuccess": "ओटीपी फिर से सफलतापूर्वक भेजा गया",
+    "loginSuccess": "सफलतापूर्वक लॉगिन हो गया",
+    "successMessage": "ओटीपी आपके ईमेल आईडी पर भेजा गया है।"
+  }
+}

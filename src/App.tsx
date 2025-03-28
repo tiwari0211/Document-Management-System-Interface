@@ -1,14 +1,15 @@
-import React from "react";
-
-import "./App.css";
-import SignIn from "./Pages/SignIn";
-
+import { RouterProvider } from "react-router-dom";
+import router from "./constants/routes";
+import React, { useState } from "react";
+import { reloadUser } from "./redux/user/thunks/fetchAllUsers";
 function App() {
-  return (
-    <>
-      <SignIn />
-    </>
-  );
+  const [load,setload]=useState(true)
+  React.useEffect(() => {
+    reloadUser().then(()=>{
+      setload(false)
+    })
+  }, []);
+  return load?"...loading":<RouterProvider router={router} />;
 }
 
 export default App;
