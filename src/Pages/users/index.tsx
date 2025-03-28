@@ -12,7 +12,7 @@ import { styles } from "../../themes/GlobalStyles";
 import Userslist from "./userslist";
 import { UserStatus } from "../../constants/routes/approved";
 import { useDispatch, useSelector } from "react-redux";
-import { createUser, updateUser } from "../../redux/user/thunks/createUser";
+import { createUser } from "../../redux/user/thunks/createUser";
 import { showSnack } from "../../redux/constants/constantSlice";
 import { fetchAllUsers } from "../../redux/user/thunks/fetchAllUsers";
 import { User } from "../../redux/user/userSlice";
@@ -23,12 +23,12 @@ function Users() {
     { label: "Approved", id: UserStatus.approved },
     { label: "Rejected", id: UserStatus.rejected },
   ];
-  const all_modules = useSelector((state:any) => state.user.all_modules);
+  const all_modules = useSelector((state: unknown) => state.user.all_modules);
   const isMobile: boolean | null = useContext(MobileProvider);
   const [details, setDetails] = useState<{ open: boolean; row?: User }>({
     open: false,
   });
-  const users: any = useSelector((state:any) => state.user.all_users);
+  const users = useSelector((state: any) => state.user.all_users);
   useEffect(() => {
     fetchAllUsers();
   }, []);
@@ -59,147 +59,140 @@ function Users() {
           fullScreen={isMobile ? true : false}
           onClose={handleClose}
           content={
-            <Box>
-              {" "}
-              <FormComponent
-                inlineCount={1}
-                updateOnList={{}}
-                {...{
-                  successMessage: () => {
-                    return "Trip added";
-                  },
-                  formatPayload: (data: ObjectValues) => {
-                    // console.log(data,"data")
-                    const newObj: ObjectValues = details.row
-                      ? {
-                          ...data,
-                          modules: data.modules.map((s: { id: any }) => s.id),
-                        }
-                      : {
-                          ...data,
-                          modules: data.modules.map((s: { id: any }) => s.id),
-                        };
-                    return newObj;
-                  },
-                  extraFields: [],
-                  inputFormArray: [
-                    {
-                      label: "Name",
-                      placeholder: "Enter",
-                      value: undefined,
-                      dataType: "text",
-                      error: false,
-                      autoFocus: true,
-                      helperText: " ",
-                      defaultValue: { value: details.row?.full_name ?? "" },
-                      fieldType: "text",
-                      api: "full_name",
-                    },
-                    {
-                      label: "Phone Number",
-                      placeholder: "Enter",
-                      value: undefined,
-                      dataType: "number",
-                      disabled: details.row ? true : false,
-                      helperText: " ",
-                      error: false,
-                      defaultValue: { value: details.row?.number ?? "" },
-                      fieldType: "text",
-                      api: "email",only_number:true
-                    },
-                    // {
-                    //   label: "Password",
-                    //   placeholder: "Enter Password",
-                    //   value: undefined,
-                    //   defaultValue: { value: "abc123" },
-                    //   dataType: "text",
-                    //   error: false,
-                    //   helperText: " ",
-                    //   fieldType: "text",
-                    //   disabled: true,
-                    // },
-                    {
-                      label: "Modules",
-                      placeholder: "Select the modu",
-                      value: undefined,
-                      error: false,
-                      // disabled: details.row ? false : true,
-                      list: all_modules,
-                      defaultValue: {
-                        value: details.row?.modules
-                          ? all_modules.filter((s: { id: string }) =>
-                              details.row?.modules.includes(s.id)
-                            )
-                          : [],
-                      },
-                      listLabel: "label",
-                      helperText: " ",
-                      showhelperText: true,
-                      fieldType: "autocomplete",
-                      api: "modules",
-                      multiple: true,
-                    },
-                    {
-                      label: "User Status",
-                      placeholder: "Select the Status",
-                      value: undefined,
-                      error: false,
-                      disabled: details.row ? false : true,
-                      list: userStatus,
-                      defaultValue: {
-                        value: details.row?.status
-                          ? userStatus.find(
-                              (s: { id: string }) =>
-                                details.row?.status === s.id
-                            )?.label
-                          : "Approved",
-                        id: details.row?.status ?? "approved",
-                      },
-                      listLabel: "label",
-                      helperText: " ",
-                      showhelperText: true,
-                      fieldType: "autocomplete",
-                      api: "status",
-                    },
-                  ],
-                  header: "wfdw",
-                  editData: {},
-                  api: {
-                    method: "add",
-                    collection_name: "",
-                    customFunction: (data) =>
-                      details.row
-                        ? updateUser(details.row.uid, data)
-                        : createUser(data),
-                  },
-                  onSubmit: details.row
-                    ? () => {
-                        dispatch(
-                          showSnack({
-                            message: "User updated",
-                            severity: "success",
-                            open: true,
-                          })
-                        );
-                        handleClose();
-                        return "";
+            <FormComponent
+              inlineCount={1}
+              updateOnList={{}}
+              {...{
+                successMessage: () => {
+                  return "Trip added";
+                },
+                formatPayload: (data: ObjectValues) => {
+                  const newObj: ObjectValues = details.row
+                    ? {
+                        ...data,
+                        modules: data.modules.map((s: { id: any }) => s.id),
                       }
-                    : () => {
-                        dispatch(
-                          showSnack({
-                            message: "User created",
-                            severity: "success",
-                            open: true,
-                          })
-                        );
-                        handleClose();
-                        return "";
-                      },
+                    : {
+                        ...data,
+                        modules: data.modules.map((s: { id: any }) => s.id),
+                      };
+                  return newObj;
+                },
+                extraFields: [],
+                inputFormArray: [
+                  {
+                    label: "Name",
+                    placeholder: "Enter",
+                    value: undefined,
+                    dataType: "text",
+                    error: false,
+                    autoFocus: true,
+                    helperText: " ",
+                    defaultValue: { value: details.row?.full_name ?? "" },
+                    fieldType: "text",
+                    api: "full_name",
+                  },
+                  {
+                    label: "Phone Number",
+                    placeholder: "Enter",
+                    value: undefined,
+                    dataType: "number",
+                    disabled: details.row ? true : false,
+                    helperText: " ",
+                    error: false,
+                    defaultValue: { value: details.row?.number ?? "" },
+                    fieldType: "text",
+                    api: "number",
+                    only_number: true,
+                  },
+                  // {
+                  //   label: "Password",
+                  //   placeholder: "Enter Password",
+                  //   value: undefined,
+                  //   defaultValue: { value: "abc123" },
+                  //   dataType: "text",
+                  //   error: false,
+                  //   helperText: " ",
+                  //   fieldType: "text",
+                  //   disabled: true,
+                  // },
+                  {
+                    label: "Modules",
+                    placeholder: "Select the modu",
+                    value: undefined,
+                    error: false,
+                    // disabled: details.row ? false : true,
+                    list: all_modules,
+                    defaultValue: {
+                      value: details.row?.modules
+                        ? all_modules.filter((s: { id: string }) =>
+                            details.row?.modules.includes(s.id)
+                          )
+                        : [],
+                    },
+                    listLabel: "label",
+                    helperText: " ",
+                    showhelperText: true,
+                    fieldType: "autocomplete",
+                    api: "modules",
+                    multiple: true,
+                  },
+                  {
+                    label: "User Status",
+                    placeholder: "Select the Status",
+                    value: undefined,
+                    error: false,
+                    disabled: details.row ? false : true,
+                    list: userStatus,
+                    defaultValue: {
+                      value: details.row?.status
+                        ? userStatus.find(
+                            (s: { id: string }) => details.row?.status === s.id
+                          )?.label
+                        : "Approved",
+                      id: details.row?.status ?? "approved",
+                    },
+                    listLabel: "label",
+                    helperText: " ",
+                    showhelperText: true,
+                    fieldType: "autocomplete",
+                    api: "status",
+                  },
+                ],
+                header: "wfdw",
+                editData: {},
+                api: {
+                  method: "add",
+                  collection_name: "",
+                  customFunction: (data) => createUser([...users, data]),
+                },
+                onSubmit: details.row
+                  ? () => {
+                      dispatch(
+                        showSnack({
+                          message: "User updated",
+                          severity: "success",
+                          open: true,
+                        })
+                      );
+                      handleClose();
+                      return "";
+                    }
+                  : () => {
+                      dispatch(
+                        showSnack({
+                          message: "User created",
+                          severity: "success",
+                          open: true,
+                        })
+                      );
+                      handleClose();
+                      return "";
+                    },
 
-                  onClear: () => {},
-                }}
-              />
-            </Box>
+                onClear: () => {},
+              }}
+            />
           }
           actions={[]}
         />

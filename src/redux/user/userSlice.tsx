@@ -3,9 +3,9 @@ import { UserStatus } from "../../constants/routes/approved";
 
 export interface User {
   status: UserStatus;
-  number:string|number;
-  modules:string[];
-  full_name?:string
+  number: string | number;
+  modules: string[];
+  full_name?: string;
 }
 
 const initialState: any = {
